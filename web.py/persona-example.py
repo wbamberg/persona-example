@@ -6,7 +6,8 @@ import requests
 urls = (
     '/', 'index',
     '/verify', 'verify',
-    '/user', 'user'
+    '/user', 'user',
+    '/logout', 'logout'
 )
 
 app = web.application(urls, globals())
@@ -48,6 +49,10 @@ class user:
         if user:
             return user
         return "no user"
+
+class logout:
+    def POST(self):
+        web.setcookie('user', '', expires = -1)
 
 if __name__ == '__main__':
     app.run()
