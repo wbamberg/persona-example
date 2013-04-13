@@ -6,7 +6,6 @@ import requests
 urls = (
     '/', 'index',
     '/verify', 'verify',
-    '/user', 'user',
     '/logout', 'logout'
 )
 
@@ -36,23 +35,16 @@ class verify:
                      "reason": "Could not connect to server" }
 
         if data['status'] == "okay":
-            web.setcookie('user', data['email'], 3600)
+            web.setcookie('currentUser', data['email'], 3600)
             message = "Logged in as: %s" % data['email']
         else:
             message = "Verification error: %s" % data['reason']
 
         return message
 
-class user:
-    def GET(self):
-        user = web.cookies().get('user')
-        if user:
-            return user
-        return "no user"
-
 class logout:
     def POST(self):
-        web.setcookie('user', '', expires = -1)
+        web.setcookie('currentUser', '', expires = -1)
 
 if __name__ == '__main__':
     app.run()
