@@ -84,12 +84,12 @@ state with Persona.
 function handleVerificationResponse(xhr) {
   return function() {
     if (xhr.status == 200) {
-        if (xhr.responseText.substring(0, 13) == "Logged in as:") {
-            updateUI(xhr.responseText.substr(14));
-        }
-        else {
+        if (xhr.responseText.substring(0, "Verification error".length) == "Verification error") {
             navigator.id.logout();
             alert(xhr.responseText);
+        }
+        else {
+            updateUI(xhr.responseText);
         }
     }
     else {

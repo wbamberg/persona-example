@@ -36,7 +36,7 @@ class verify:
 
         if data['status'] == "okay":
             web.setcookie('currentUser', data['email'], 3600)
-            message = "Logged in as: %s" % data['email']
+            message = data['email']
         else:
             message = "Verification error: %s" % data['reason']
 
